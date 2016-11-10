@@ -59,11 +59,16 @@ if __name__ == "__main__":
 
     odf['month'] = odf['createdDate'].dt.month
     plt.figure(1)
+    plt.title("Hakemukset kuukausittain")
+    plt.xlabel("Kuukausi")
+    plt.ylabel("Hakemusten maara")
+    analyze.applications_by_month(odf)
+    plt.figure(2)
     plt.title("Pientalohakemukset kuukausittain")
     plt.xlabel("Kuukausi")
     plt.ylabel("Hakemusten maara")
     analyze.applications_by_month_by_action(odf, 'pientalo')
-    plt.figure(2)
+    plt.figure(3)
     plt.title("Maalampohakemukset kuukausittain")
     plt.xlabel("Kuukausi")
     plt.ylabel("Hakemusten maara")
