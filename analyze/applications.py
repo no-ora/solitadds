@@ -97,7 +97,7 @@ def applications_by_month_by_action(odf, operation):
     odf_operation = odf[odf['operationId'] == operation]
     nApplicationsMonth = range(12)
     for i in range(12):
-        nApplicationsMonth[i] = len(odf_operation[odf_operation['month'] == (i + 1)])
+        nApplicationsMonth[i] = len(odf_operation[odf_operation['createdMonth'] == (i + 1)])
     
     width = 1/1.5
     color = "blue"
@@ -106,7 +106,7 @@ def applications_by_month_by_action(odf, operation):
 def applications_by_month(odf):
     nApplicationsMonth = range(12)
     for i in range(12):
-        nApplicationsMonth[i] = len(odf[odf['month'] == (i + 1)])
+        nApplicationsMonth[i] = len(odf[odf['createdMonth'] == (i + 1)])
     
     width = 1/1.5
     color = "blue"
