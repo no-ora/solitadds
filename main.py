@@ -24,7 +24,7 @@ def parse_args():
     python main.py --input-file-operative ../data/small/some-applications-operative-pub-20161031.csv --input-file-usage ../data/small/some-lupapiste-usage-pub-20161031.csv --output-file-applications ../target/application-summary.csv --output-file-users ../target/user-summary.csv
     """
     parser = argparse.ArgumentParser(description='SOLITADDS analysis')
-    parser.add_argument('-io', '--input-file-operative', help='Input CSV file for operative data', required = False, default = os.getcwd() + "/test-data/all-applications-operative-pub-20161031.csv")
+    parser.add_argument('-io', '--input-file-operative', help='Input CSV file for operative data', required = False, default = os.getcwd() + "/test-data/some-applications-operative-pub-20161031.csv")
     parser.add_argument('-iu', '--input-file-usage', help='Input CSV file for usage data', required = False, default = os.getcwd() + "/test-data/some-lupapiste-usage-pub-20161031.csv")
     parser.add_argument('-oa', '--output-file-applications', help='Output CSV file for applications', required = False, default = os.getcwd() + "summary-applications.csv")
     parser.add_argument('-ou', '--output-file-users', help='Output CSV file for users', required=False, default = os.getcwd() + "summary-users.csv")
