@@ -54,6 +54,8 @@ def parse_application_summary(application_id, app, ae):
                 "nApplicationComments": len(ae[(ae['action'] == 'add-comment') & (ae['target'] == 'application')]),
                 "nApplicationCommentsApplicant": len(ae[(ae['role'] == 'applicant') & (ae['action'] == 'add-comment') & (ae['target'] == 'application')]),
                 "nApplicationCommentsAuthority": len(ae[(ae['role'] == 'authority') & (ae['action'] == 'add-comment') & (ae['target'] == 'application')]),
+                "createdMonth": app['createdDate'].month,
+                "createdWeekDay": app['createdDate'].dayofweek,
                 "sessionLength": count_session_length(ae, SESSION_THRESHOLD_IN_MINUTES),
                 "sessionLengthApplicant": count_session_length_by_role(ae, 'applicant', SESSION_THRESHOLD_IN_MINUTES),
                 "sessionLengthAuthority": count_session_length_by_role(ae, 'authority', SESSION_THRESHOLD_IN_MINUTES),
