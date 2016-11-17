@@ -74,21 +74,21 @@ if __name__ == "__main__":
     plt.xlabel("Kuukausi")
     plt.ylabel("Hakemusten maara")
     analyze.applications_by_month(odf)
-    plt.savefig(output_images_folder + "/kaikki_kuukausittain.png")
+    canvas = FigureCanvasAgg(fig)
+    canvas.print_figure(output_images_folder + "/kaikki_kuukausittain.png", dpi=80)
     
     
     operationIds = odf['operationId'].unique()
     counter = 2
     for operationId in operationIds:
         if isinstance(operationId, basestring):
-            plt.figure(counter)
+            fig = plt.figure(counter)
             counter = counter + 1
             plt.title(operationId)
             plt.xlabel("Kuukausi")
             plt.ylabel("Hakemusten maara")
             analyze.applications_by_month_by_action(odf, operationId)
-            plt.savefig(output_images_folder + '/' + operationId + "_kuukausittain.png")
-            plt.close()
             canvas = FigureCanvasAgg(fig)
             canvas.print_figure(output_images_folder + '/' + operationId + "_kuukausittain.png", dpi=80)
+            plt.close()
             

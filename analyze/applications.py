@@ -104,8 +104,6 @@ def applications_by_month_by_action(odf, operation):
     for i in range(12):
         nApplicationsMonth[i] = len(odf_operation[odf_operation['createdMonth'] == (i + 1)])
     
-    width = 1/1.5
-    color = "blue"
     plt.bar([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], nApplicationsMonth, width=1.0, color="blue")
     
 def applications_by_month(odf):
@@ -113,8 +111,6 @@ def applications_by_month(odf):
     for i in range(12):
         nApplicationsMonth[i] = len(odf[odf['createdMonth'] == (i + 1)])
     
-    width = 1/1.5
-    color = "blue"
     plt.bar([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], nApplicationsMonth, width=1.0, color="blue")
     
     
