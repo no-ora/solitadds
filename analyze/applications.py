@@ -98,20 +98,28 @@ def count_days(app, from_date_name, till_date_name):
     else:
         return int(delta.days + 1)
 
-def applications_by_month_by_action(odf, operation):
-    odf_operation = odf[odf['operationId'] == operation]
+def applications_by_month_by_action(application_summary, operation):
+    odf_operation = application_summary[application_summary['operationId'] == operation]
     nApplicationsMonth = range(12)
     for i in range(12):
         nApplicationsMonth[i] = len(odf_operation[odf_operation['createdMonth'] == (i + 1)])
     
     plt.bar([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], nApplicationsMonth, width=1.0, color="blue")
     
-def applications_by_month(odf):
+def applications_by_month(application_summary):
     nApplicationsMonth = range(12)
     for i in range(12):
-        nApplicationsMonth[i] = len(odf[odf['createdMonth'] == (i + 1)])
+        nApplicationsMonth[i] = len(application_summary[application_summary['createdMonth'] == (i + 1)])
     
     plt.bar([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], nApplicationsMonth, width=1.0, color="blue")
     
+def applications_by_weekday(application_summary):
+    ind = np.arange(7) + 0.2
+    nApplicationsWeekday = range(0, 7)
+    for i in range(0, 7):
+        nApplicationsWeekday[i] = len(application_summary[application_summary['createdWeekDay'] == i])
+    
+    plt.bar(ind, nApplicationsWeekday, width=1.0, color="blue")
+    plt.xticks(ind + 0.8/2., ('Ma', 'Ti', 'Ke', 'To', 'Pe', 'La','Su'))
     
     

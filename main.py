@@ -61,8 +61,6 @@ if __name__ == "__main__":
     user_summary.to_csv(output_file_users, sep=';', encoding='utf-8')
     
     print("Analysis took {} seconds".format(datetime.datetime.now() - analysis_start_time))
-
-    odf['createdMonth'] = odf['createdDate'].dt.month
     
     # Create folder for images
     if not os.path.exists(output_images_folder):
@@ -73,9 +71,19 @@ if __name__ == "__main__":
     plt.title("Kaikki")
     plt.xlabel("Kuukausi")
     plt.ylabel("Hakemusten maara")
-    analyze.applications_by_month(odf)
+    analyze.applications_by_month(application_summary)
     canvas = FigureCanvasAgg(fig)
     canvas.print_figure(output_images_folder + "/kaikki_kuukausittain.png", dpi=80)
+    plt.close()
+    
+    fig = plt.figure(1)
+    plt.title("Kaikki")
+    plt.xlabel("Viikonpaiva")
+    plt.ylabel("Hakemusten maara")
+    analyze.applications_by_weekday(application_summary)
+    canvas = FigureCanvasAgg(fig)
+    canvas.print_figure(output_images_folder + "/kaikki_viikonpaiva.png", dpi=80)
+    plt.close()
     
     
     operationIds = odf['operationId'].unique()
@@ -87,7 +95,7 @@ if __name__ == "__main__":
             plt.title(operationId)
             plt.xlabel("Kuukausi")
             plt.ylabel("Hakemusten maara")
-            analyze.applications_by_month_by_action(odf, operationId)
+            analyze.applications_by_month_by_action(application_summary, operationId)
             canvas = FigureCanvasAgg(fig)
             canvas.print_figure(output_images_folder + '/' + operationId + "_kuukausittain.png", dpi=80)
             plt.close()

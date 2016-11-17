@@ -1,2 +1,2 @@
-from applications import summarize_applications, applications_by_month_by_action, applications_by_month
+from applications import summarize_applications, applications_by_month_by_action, applications_by_month, applications_by_weekday
 from users import summarize_users
