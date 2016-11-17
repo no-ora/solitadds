@@ -2,8 +2,11 @@ import sys, math, pdb
 from datetime import timedelta
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import logging
+
+import matplotlib as mpl
+mpl.use('Agg')
+import matplotlib.pyplot as plt
 
 SESSION_THRESHOLD_IN_MINUTES = 15
 
