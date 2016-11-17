@@ -122,4 +122,14 @@ def applications_by_weekday(application_summary):
     plt.bar(ind, nApplicationsWeekday, width=1.0, color="blue")
     plt.xticks(ind + 0.8/2., ('Ma', 'Ti', 'Ke', 'To', 'Pe', 'La','Su'))
     
+def applications_by_weekday_by_operation(application_summary, operation):
+    odf_operation = application_summary[application_summary['operationId'] == operation]
+    ind = np.arange(7) + 0.2
+    nApplicationsWeekday = range(0, 7)
+    for i in range(0, 7):
+        nApplicationsWeekday[i] = len(odf_operation[odf_operation['createdWeekDay'] == i])
     
+    plt.bar(ind, nApplicationsWeekday, width=1.0, color="blue")
+    plt.xticks(ind + 0.8/2., ('Ma', 'Ti', 'Ke', 'To', 'Pe', 'La','Su'))
+    
+
