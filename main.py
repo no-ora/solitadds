@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib as mpl
 mpl.use('Agg')
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 import datetime
 
 import utils, data_helper
@@ -68,7 +69,7 @@ if __name__ == "__main__":
         os.makedirs(output_images_folder)
     
     # Barchart for applications by month
-    plt.figure(1)
+    fig = plt.figure(1)
     plt.title("Kaikki")
     plt.xlabel("Kuukausi")
     plt.ylabel("Hakemusten maara")
@@ -88,3 +89,6 @@ if __name__ == "__main__":
             analyze.applications_by_month_by_action(odf, operationId)
             plt.savefig(output_images_folder + '/' + operationId + "_kuukausittain.png")
             plt.close()
+            canvas = FigureCanvasAgg(fig)
+            canvas.print_figure(output_images_folder + '/' + operationId + "_kuukausittain.png", dpi=80)
+            
