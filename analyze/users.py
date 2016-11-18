@@ -41,5 +41,6 @@ def parse_user_summary(user_id, user_events):
     return user
 
 # One time builder one application as an applicant and zero as an authority?
+# Maybe better would be check who has created the application and if they have done it only once
 def get_one_time_builder_application_ids(user_summary):
     return np.unique(np.concatenate(user_summary[(user_summary['applicantRoles'] == 1)]['applicationIds'].values))

@@ -5,6 +5,7 @@ import utils
 import analyze
 import pdb
 import logging
+from analyze.users import get_one_time_builder_application_ids
 
 _TEST_DATA_FILE = "test-data/some-lupapiste-usage-pub-20161031.csv"
 _OPERATIVE_TEST_DATA_FILE = "test-data/some-applications-operative-pub-20161031.csv"
@@ -37,13 +38,13 @@ class TestApplicationSummary(unittest.TestCase):
         self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['leadTime'].item(), 35)
     
     def test_application_month(self):
-        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdMonth'], 10)
+        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdMonth'].item(), 10)
     
     def test_application_weekday(self):
-        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdWeekDay'], 4)
+        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdWeekDay'].item(), 4)
         
     def test_application_hour(self):
-        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdHour'], 9)    
+        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdHour'].item(), 9)    
     
 class TestUsersSummary(unittest.TestCase):
 
@@ -55,6 +56,11 @@ class TestUsersSummary(unittest.TestCase):
 
     def test_number_of_users(self):
         self.assertEqual(len(self.users), 71)
+    
+    def test_one_time_builder_applications(self):
+        self.one_time_builder_applications = analyze.get_one_time_builder_application_ids(self.users)
+        self.assertEqual(len(self.one_time_builder_applications), 9)
+        
 
 if __name__ == '__main__':
     unittest.main()
