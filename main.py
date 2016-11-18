@@ -76,7 +76,7 @@ if __name__ == "__main__":
     canvas.print_figure(output_images_folder + "/kaikki_kuukausittain.png", dpi=80)
     plt.close()
     
-    fig = plt.figure(1)
+    fig = plt.figure(2)
     plt.title("Kaikki")
     plt.xlabel("Viikonpaiva")
     plt.ylabel("Hakemusten maara")
@@ -85,9 +85,18 @@ if __name__ == "__main__":
     canvas.print_figure(output_images_folder + "/kaikki_viikonpaiva.png", dpi=80)
     plt.close()
     
+    fig = plt.figure(3)
+    plt.title("Kaikki")
+    plt.xlabel("Tunti")
+    plt.ylabel("Hakemusten maara")
+    analyze.applications_by_hour(application_summary)
+    canvas = FigureCanvasAgg(fig)
+    canvas.print_figure(output_images_folder + "/kaikki_tunti.png", dpi=80)
+    plt.close()
+    
     
     operationIds = odf['operationId'].unique()
-    counter = 2
+    counter = 4
     for operationId in operationIds:
         if isinstance(operationId, basestring):
             fig = plt.figure(counter)
@@ -108,5 +117,15 @@ if __name__ == "__main__":
             analyze.applications_by_weekday_by_operation(application_summary, operationId)
             canvas = FigureCanvasAgg(fig)
             canvas.print_figure(output_images_folder + '/' + operationId + "_viikonpaiva.png", dpi=80)
+            plt.close()
+            
+            fig = plt.figure(counter)
+            counter = counter + 1
+            plt.title(operationId)
+            plt.xlabel("Tunti")
+            plt.ylabel("Hakemusten maara")
+            analyze.applications_by_hour_by_operation(application_summary, operationId)
+            canvas = FigureCanvasAgg(fig)
+            canvas.print_figure(output_images_folder + '/' + operationId + "_tunti.png", dpi=80)
             plt.close()
             

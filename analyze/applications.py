@@ -59,6 +59,7 @@ def parse_application_summary(application_id, app, ae):
                 "nApplicationCommentsAuthority": len(ae[(ae['role'] == 'authority') & (ae['action'] == 'add-comment') & (ae['target'] == 'application')]),
                 "createdMonth": app['createdDate'].month,
                 "createdWeekDay": app['createdDate'].dayofweek,
+                "createdHour": app['createdDate'].hour,
                 "sessionLength": count_session_length(ae, SESSION_THRESHOLD_IN_MINUTES),
                 "sessionLengthApplicant": count_session_length_by_role(ae, 'applicant', SESSION_THRESHOLD_IN_MINUTES),
                 "sessionLengthAuthority": count_session_length_by_role(ae, 'authority', SESSION_THRESHOLD_IN_MINUTES),
@@ -132,4 +133,18 @@ def applications_by_weekday_by_operation(application_summary, operation):
     plt.bar(ind, nApplicationsWeekday, width=1.0, color="blue")
     plt.xticks(ind + 0.8/2., ('Ma', 'Ti', 'Ke', 'To', 'Pe', 'La','Su'))
     
+def applications_by_hour(application_summary):
+    nApplicationsHour = range(24)
+    for i in range(24):
+        nApplicationsHour[i] = len(application_summary[application_summary['createdHour'] == i])
+    
+    plt.bar(range(24), nApplicationsHour, width=1.0, color="blue")
+    
+def applications_by_hour_by_operation(application_summary, operation):
+    odf_operation = application_summary[application_summary['operationId'] == operation]
+    nApplicationsHour = range(24)
+    for i in range(24):
+        nApplicationsHour[i] = len(odf_operation[odf_operation['createdHour'] == i])
+    
+    plt.bar(range(24), nApplicationsHour, width=1.0, color="blue")
 
