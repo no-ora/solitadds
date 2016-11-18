@@ -62,70 +62,14 @@ if __name__ == "__main__":
     
     print("Analysis took {} seconds".format(datetime.datetime.now() - analysis_start_time))
     
-    # Create folder for images
-    if not os.path.exists(output_images_folder):
-        os.makedirs(output_images_folder)
+    # Plots for all applications
+    analyze.draw_plots_for_month(output_images_folder, application_summary, "kuukausi_kaikki")
+    analyze.draw_plots_for_weekday(output_images_folder, application_summary, "viikonpaiva_kaikki")
+    analyze.draw_plots_for_hour(output_images_folder, application_summary, "tunti_kaikki")
     
-    # Barchart for applications by month
-    fig = plt.figure(1)
-    plt.title("Kaikki")
-    plt.xlabel("Kuukausi")
-    plt.ylabel("Hakemusten maara")
-    analyze.applications_by_month(application_summary)
-    canvas = FigureCanvasAgg(fig)
-    canvas.print_figure(output_images_folder + "/kaikki_kuukausittain.png", dpi=80)
-    plt.close()
+    # Plots for one time builders
+    one_time_builder_data = application_summary[application_summary['applicationId'].isin(analyze.get_one_time_builder_application_ids(user_summary))]
+    analyze.draw_plots_for_month(output_images_folder, one_time_builder_data, "kuukausi_kertarakentaja")
+    analyze.draw_plots_for_weekday(output_images_folder, one_time_builder_data, "viikonpaiva_kertarakentaja")
+    analyze.draw_plots_for_hour(output_images_folder, one_time_builder_data, "tunti_kertarakentaja")
     
-    fig = plt.figure(2)
-    plt.title("Kaikki")
-    plt.xlabel("Viikonpaiva")
-    plt.ylabel("Hakemusten maara")
-    analyze.applications_by_weekday(application_summary)
-    canvas = FigureCanvasAgg(fig)
-    canvas.print_figure(output_images_folder + "/kaikki_viikonpaiva.png", dpi=80)
-    plt.close()
-    
-    fig = plt.figure(3)
-    plt.title("Kaikki")
-    plt.xlabel("Tunti")
-    plt.ylabel("Hakemusten maara")
-    analyze.applications_by_hour(application_summary)
-    canvas = FigureCanvasAgg(fig)
-    canvas.print_figure(output_images_folder + "/kaikki_tunti.png", dpi=80)
-    plt.close()
-    
-    
-    operationIds = odf['operationId'].unique()
-    counter = 4
-    for operationId in operationIds:
-        if isinstance(operationId, basestring):
-            fig = plt.figure(counter)
-            counter = counter + 1
-            plt.title(operationId)
-            plt.xlabel("Kuukausi")
-            plt.ylabel("Hakemusten maara")
-            analyze.applications_by_month_by_action(application_summary, operationId)
-            canvas = FigureCanvasAgg(fig)
-            canvas.print_figure(output_images_folder + '/' + operationId + "_kuukausittain.png", dpi=80)
-            plt.close()
-            
-            fig = plt.figure(counter)
-            counter = counter + 1
-            plt.title(operationId)
-            plt.xlabel("Viikonpaiva")
-            plt.ylabel("Hakemusten maara")
-            analyze.applications_by_weekday_by_operation(application_summary, operationId)
-            canvas = FigureCanvasAgg(fig)
-            canvas.print_figure(output_images_folder + '/' + operationId + "_viikonpaiva.png", dpi=80)
-            plt.close()
-            
-            fig = plt.figure(counter)
-            counter = counter + 1
-            plt.title(operationId)
-            plt.xlabel("Tunti")
-            plt.ylabel("Hakemusten maara")
-            analyze.applications_by_hour_by_operation(application_summary, operationId)
-            canvas = FigureCanvasAgg(fig)
-            canvas.print_figure(output_images_folder + '/' + operationId + "_tunti.png", dpi=80)
-            plt.close()
-            
