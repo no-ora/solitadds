@@ -35,8 +35,16 @@ class TestApplicationSummary(unittest.TestCase):
             
     def test_lead_time(self):
         self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['leadTime'].item(), 35)
-
-
+    
+    def test_application_month(self):
+        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdMonth'], 10)
+    
+    def test_application_weekday(self):
+        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdWeekDay'], 4)
+        
+    def test_application_hour(self):
+        self.assertEqual(self.apps[self.apps['applicationId'] == 'LP-1001-219067']['createdHour'], 9)    
+    
 class TestUsersSummary(unittest.TestCase):
 
     @classmethod
