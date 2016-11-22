@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
     municipality_summary = analyze.combine_municipalities_data(municipalityId, municipalityData)
 
-    application_summary =  analyze.summarize_applications(odf, udf)
+    application_summary =  analyze.summarize_applications(odf, udf, municipality_summary)
     application_summary.to_csv(output_file_applications, sep=';', encoding='utf-8')
     
     user_summary = analyze.summarize_users(odf, udf)

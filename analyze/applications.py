@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 
 SESSION_THRESHOLD_IN_MINUTES = 15
 
-def summarize_applications(odf, udf):
+def summarize_applications(odf, udf, municipality_summary):
     """ Create a summary of the applications as a table. Presumes app_events are in datetime order
           * Count number of comments for different roles
     """
@@ -33,7 +33,7 @@ def summarize_applications(odf, udf):
             print("Skipping application with no operative data: " + application_id)
             continue
 
-        app_info = parse_application_summary(application_id, app.iloc[0].to_dict(), udf[udf['applicationId'] == application_id])
+        app_info = parse_application_summary(application_id, app.iloc[0].to_dict(), udf[udf['applicationId'] == application_id], municipality_summary)
 
         if summary is None:
             summary = pd.DataFrame(app_info, index = [0])
@@ -49,7 +49,7 @@ def summarize_applications(odf, udf):
 
     return summary
 
-def parse_application_summary(application_id, app, ae):
+def parse_application_summary(application_id, app, ae, municipality_summary):
     result = {  "applicationId": application_id, 
                 "nEvents": len(ae),
                 "nUsers": ae.userId.nunique(),
@@ -66,6 +66,7 @@ def parse_application_summary(application_id, app, ae):
                 "sessionLengthApplicant": count_session_length_by_role(ae, 'applicant', SESSION_THRESHOLD_IN_MINUTES),
                 "sessionLengthAuthority": count_session_length_by_role(ae, 'authority', SESSION_THRESHOLD_IN_MINUTES),
                 "leadTime": count_days(app, 'createdDate', 'verdictGivenDate'),
+                "municipality" : municipality_summary[municipality_summary['municipalityId'] == app['municipalityId']]['municipalityName']
             }
     return result
 
