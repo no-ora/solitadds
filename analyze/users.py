@@ -34,9 +34,14 @@ def summarize_users(odf, udf):
 def parse_user_summary(user_id, user_events):
     user = {    "userId": user_id, 
                 "applicantRoles": len(user_events[user_events['role'] == 'applicant']['applicationId'].unique()),
-                "authorityRoles": len(user_events[user_events['role'] == 'authority']['applicationId'].unique()),
-                "applicationIds": user_events['applicationId'].unique()
+                "authorityRoles": len(user_events[user_events['role'] == 'authority']['applicationId'].unique())
             }
+    
+    #user = {    "userId": user_id, 
+     #           "applicantRoles": len(user_events[user_events['role'] == 'applicant']['applicationId'].unique()),
+      #          "authorityRoles": len(user_events[user_events['role'] == 'authority']['applicationId'].unique()),
+       #         "applicationIds": user_events['applicationId'].unique()
+        #    }
 
     return user
 

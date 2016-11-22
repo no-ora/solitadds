@@ -1,3 +1,4 @@
 from applications import summarize_applications, applications_by_month_by_action, applications_by_month, applications_by_weekday, applications_by_weekday_by_operation, applications_by_hour, applications_by_hour_by_operation
 from users import summarize_users, get_one_time_builder_application_ids
 from plots_for_variations import draw_plots_for_hour, draw_plots_for_month, draw_plots_for_weekday
+from municipalities import combine_municipalities_data

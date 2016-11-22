@@ -57,13 +57,15 @@ def parse_application_summary(application_id, app, ae):
                 "nApplicationComments": len(ae[(ae['action'] == 'add-comment') & (ae['target'] == 'application')]),
                 "nApplicationCommentsApplicant": len(ae[(ae['role'] == 'applicant') & (ae['action'] == 'add-comment') & (ae['target'] == 'application')]),
                 "nApplicationCommentsAuthority": len(ae[(ae['role'] == 'authority') & (ae['action'] == 'add-comment') & (ae['target'] == 'application')]),
+                "nUploadAttachments" : len(ae[ae['action'] == 'upload-attachment']),
+                "nInvites" : len(ae[ae['action'] == 'invite-with-role']),
                 "createdMonth": app['createdDate'].month,
                 "createdWeekDay": app['createdDate'].dayofweek,
                 "createdHour": app['createdDate'].hour,
                 "sessionLength": count_session_length(ae, SESSION_THRESHOLD_IN_MINUTES),
                 "sessionLengthApplicant": count_session_length_by_role(ae, 'applicant', SESSION_THRESHOLD_IN_MINUTES),
                 "sessionLengthAuthority": count_session_length_by_role(ae, 'authority', SESSION_THRESHOLD_IN_MINUTES),
-                "leadTime": count_days(app, 'createdDate', 'verdictGivenDate')
+                "leadTime": count_days(app, 'createdDate', 'verdictGivenDate'),
             }
     return result
 
@@ -98,6 +100,7 @@ def count_days(app, from_date_name, till_date_name):
         return None
     else:
         return int(delta.days + 1)
+
 
 def applications_by_month_by_action(application_summary, operation):
     odf_operation = application_summary[application_summary['operationId'] == operation]
